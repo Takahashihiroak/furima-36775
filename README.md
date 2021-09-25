@@ -5,46 +5,57 @@
 | Column             | Type   | Options    |
 | ------------------ | ------ | -----------|
 | nickname           | string | null:false | 
-| email              | string | null:false | 
+| email              | string | null:false, unique:true | 
 | encrypted_password | string | null:false | 
-| user_image         | string |            | 
-| introduction       | text   |            | 
 | family_name        | string | null:false | 
 | first_name         | string | null:false | 
 | family_name_kana   | string | null:false | 
 | first_name_kana    | string | null:false | 
-| birthday_year_id   | string | null:false | 
-| birthday_moon_id   | string | null:false | 
-| birthday_day_id    | string | null:false | 
+| birthday           | date   | null:false | 
 
-### Association
+### Association 
 
-- has_many :items dependent: :destroy
-- belongs_to :buyer dependent: :destroy
+- has_many :items
+- has_many :order
 
 ## items テーブル
 
 |               |         |                                | 
 | ------------- | ------- | ------------------------------ | 
 | name          | string  | null:false                     | 
-| price         | string  | null:false                     | 
-| description   | string  | null:false                     | 
-| status        | string  | null:false                     | 
-| size          | string  | null:false                     | 
-| shipping_cost | string  | null:false                     | 
-| shipping_days | string  | null:false                     | 
-| prefecture_id | string  | null:false                     | 
-| judgment      | string  |                                | 
-| category_id   | integer | null: false, foreign_key: true | 
-| brand_id      | integer | null: false, foreign_key: true | 
-| shipping_id   | integer | null: false, foreign_key: true | 
-| user_id       | integer | null: false, foreign_key: true | 
+| price         | integer | null:false                     | 
+| text          | text    | null:false                     | 
+| delivery_day_id| integer| null:false                     | 
+| prefecture_id | integer | null:false                     | 
+| category_id   | integer | null: false                    | 
+| condition_id  | integer | null: false                    | 
+| delivery_fee_id| integer| null: false                    | 
+| user         |references| null: false, foreign_key: true | 
 
 ### Association
 
-- belongs_to :user dependent: :destroy
+- belongs_to :user 
+- belongs_to :category_id
+- belongs_to :condition_id
+- belongs_to :prefecture_id
+- belongs_to :delivery_day_id
+- belongs_to :delivery_fee_id
+- has_one :order
 
-## buyer テーブル
+## order テーブル
+
+|        |           |                                | 
+| -------| -------   | ------------------------------ | 
+| user   | references| null:false, foreign_key: true  |
+| items  | references| null:false, foreign_key: true  |
+
+### Association
+
+- belongs_to :user
+- belongs_to :item
+- has_one :buyer address
+
+## buyer Address テーブル
 
 |                  |         |                               | 
 | ---------------- | ------- | ----------------------------- | 
@@ -54,12 +65,14 @@
 | family_name_kana | string  | null:false                    | 
 | first_name_kana  | string  | null:false                    | 
 | post_code        | string  | null:false                    | 
-| prefecture       | string  | null:false                    | 
+| prefecture_id    | integer | null:false                    | 
 | city             | string  | null:false                    | 
 | address          | string  | null:false                    | 
-| building_name     | string  |                               | 
-| phone_number     | string  |                               | 
+| building_name    | string  |                               | 
+| phone_number     | string  | null:false                    | 
 
 ### Association
 
-- belongs_to :user
+- belongs_to :order
+- belongs_to :user_id
+- belongs_to :prefecture_id
