@@ -16,7 +16,7 @@
 ### Association 
 
 - has_many :items
-- has_many :order
+- has_many :orders
 
 ## items テーブル
 
@@ -35,19 +35,14 @@
 ### Association
 
 - belongs_to :user 
-- belongs_to :category_id
-- belongs_to :condition_id
-- belongs_to :prefecture_id
-- belongs_to :delivery_day_id
-- belongs_to :delivery_fee_id
 - has_one :order
 
-## order テーブル
+## orders テーブル
 
 |        |           |                                | 
 | -------| -------   | ------------------------------ | 
 | user   | references| null:false, foreign_key: true  |
-| items  | references| null:false, foreign_key: true  |
+| item   | references| null:false, foreign_key: true  |
 
 ### Association
 
@@ -55,11 +50,10 @@
 - belongs_to :item
 - has_one :buyer address
 
-## buyer Address テーブル
+## buyer Addresses テーブル
 
 |                  |         |                               | 
 | ---------------- | ------- | ----------------------------- | 
-| user_id          | integer | null:false, foreign_key: true | 
 | family_name      | string  | null:false                    | 
 | first_name       | string  | null:false                    | 
 | family_name_kana | string  | null:false                    | 
@@ -74,5 +68,3 @@
 ### Association
 
 - belongs_to :order
-- belongs_to :user_id
-- belongs_to :prefecture_id
