@@ -15,6 +15,8 @@ class User < ApplicationRecord
   end
   validates :birthday, presence: true
   validates :password, format: { with: /(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{6,}/, message:'英数字混合を使用してください' } do
- 
   end
+
+  has_many :items
+  has_many :orders
 end
