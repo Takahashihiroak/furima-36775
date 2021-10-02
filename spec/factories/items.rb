@@ -9,5 +9,10 @@ FactoryBot.define do
     delivery_fee_id {3}
     prefecture_id {3}
     association :user 
+    
+
+    after(:build) do |message|
+      message.image.attach(io: File.open('public/images/apple-touch-icon.png'), filename: 'apple-touch-icon.png')
+    end
   end
 end
