@@ -1,11 +1,15 @@
 class OrdersController < ApplicationController
   before_action :set_item
+  before_action :authenticate_user!
+  before_action :set_confirmation
+  before_action :sold_out
 
   def index
     @order_address = OrderAddress.new
   end
 
   def create
+    redirect_to new_card_path and return unless current_user.card.present?
     @order_address = OrderAddress.new(order_params)
     if @order_address.valid?
       pay_item
@@ -34,6 +38,14 @@ class OrdersController < ApplicationController
         card: order_params[:token],
         currency: 'jpy'
       )
+  end
+
+  def set_confirmation
+    redirect_to root_path if current_user.id == @item.user.id
+  end
+
+  def sold_out
+    redirect_to root_path if @item.order.present?
   end
 
 end
