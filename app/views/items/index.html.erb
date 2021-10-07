@@ -133,7 +133,7 @@
             <div class='item-img-content'>
               <%= image_tag item.image, class: "item-img" %>
 
-              <% if @items.present? %>
+              <% if item.order.present? %>
               <div class='sold-out'>
                 <span>Sold Out!!</span>
               </div>
@@ -155,6 +155,7 @@
             <% end %>
           </li>
         <% end %>
+
         <% if @items.blank? %>
         <li class='list'>
           <%= link_to '#' do %>
