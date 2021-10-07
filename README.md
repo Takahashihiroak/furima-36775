@@ -64,16 +64,3 @@
 ### Association
 
 - belongs_to :order
-
-<!-- ## addresses table
-
-| Column                  | Type        | Options           |
-| ----------------------- | ----------- | ----------------- |
-| id(PK)                  | デフォルト    | null: false       |
-| postal_code             | string      | null: false       |
-| prefecture_id              | integer     | null: false       |
-| city                    | string      | null: false       |
-| address                 | string      | null: false       |
-| building                | string      |                   |
-| phone_number            | string      | null: false       |
-| order(FK)               | references  | foreign_key: true | -->

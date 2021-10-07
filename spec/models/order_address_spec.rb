@@ -18,9 +18,6 @@ RSpec.describe OrderAddress, type: :model do
         @order_address.valid?
         expect(@order_address).to be_valid
       end
-      it "tokenがあれば保存ができること" do
-        expect(@order_address).to be_valid
-      end
     end
 
     context '商品を購入できないとき' do
