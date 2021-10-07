@@ -8,6 +8,7 @@ class OrderAddress
     validates :city
     validates :address
     validates :phone_number, numericality: { only_integer: true }
+    validates :phone_number, format: {with: /\A0\d{9,10}\z/, message:"is invalid"}
     validates :user_id
     validates :item_id
     validates :token

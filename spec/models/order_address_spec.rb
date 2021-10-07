@@ -64,10 +64,20 @@ RSpec.describe OrderAddress, type: :model do
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include("Phone number is not a number")
       end
-      it '電話番号が11桁以内の数値のみでなければ保存できないこと' do
+      it '電話番号に全角数字が含まれていると保存できないこと' do
         @order_address.phone_number = '０００００００００００'
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include("Phone number is not a number")
+      end
+      it '電話番号が9桁以下では購入できないこと' do
+        @order_address.phone_number = '000000000'
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include("Phone number is invalid")
+      end
+      it '電話番号が12桁以上では購入できない' do
+        @order_address.phone_number = '0000000000000'
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include("Phone number is invalid")
       end
       it "user_id が空では登録できないこと" do
         @order_address.user_id = nil
