@@ -64,7 +64,7 @@ RSpec.describe OrderAddress, type: :model do
       it '電話番号に全角数字が含まれていると保存できないこと' do
         @order_address.phone_number = '０００００００００００'
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include("Phone number is not a number")
+        expect(@order_address.errors.full_messages).to include("Phone number is invalid")
       end
       it '電話番号が9桁以下では購入できないこと' do
         @order_address.phone_number = '000000000'
